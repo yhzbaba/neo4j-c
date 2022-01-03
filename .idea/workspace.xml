@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fe6e97c8-d3c6-486d-b307-6709cab75b1f" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+    <option name="PARALLEL_COMPILATION" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../../Software/apache-maven-3.6.3" />
+        <option name="userSettingsFile" value="$PROJECT_DIR$/../../../../Software/apache-maven-3.6.3/conf/settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="212HlLeHlF4nFgiXDkTPw8NefKO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/neo4j-spring-boot/src/main/java" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.externalDependencies" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/neo4j-spring-boot/src/main/java" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.Neo4jSpringBootApplicationTest.readAllFiles">
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="crystal.Main" />
+      <module name="neo4j-spring-boot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="crystal.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="crystal.projects.sample.Main" />
+      <module name="neo4j-spring-boot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="crystal.projects.sample.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Neo4jSpringBootApplicationTest.buildRelationship2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="neo4j-spring-boot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.neo4jspringboot.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.neo4jspringboot" />
+      <option name="MAIN_CLASS_NAME" value="org.example.neo4jspringboot.Neo4jSpringBootApplicationTest" />
+      <option name="METHOD_NAME" value="buildRelationship2" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Neo4jSpringBootApplicationTest.readAllFiles" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="neo4j-spring-boot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.neo4jspringboot.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.neo4jspringboot" />
+      <option name="MAIN_CLASS_NAME" value="org.example.neo4jspringboot.Neo4jSpringBootApplicationTest" />
+      <option name="METHOD_NAME" value="readAllFiles" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Neo4jSpringBootApplicationTest.testQuery1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="neo4j-spring-boot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.neo4jspringboot.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.neo4jspringboot" />
+      <option name="MAIN_CLASS_NAME" value="org.example.neo4jspringboot.Neo4jSpringBootApplicationTest" />
+      <option name="METHOD_NAME" value="testQuery1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.Neo4jSpringBootApplicationTest.readAllFiles" />
+        <item itemvalue="JUnit.Neo4jSpringBootApplicationTest.testQuery1" />
+        <item itemvalue="Application.Main (1)" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.Neo4jSpringBootApplicationTest.buildRelationship2" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SshConsoleOptionsProvider">
+    <option name="myEncoding" value="UTF-8" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fe6e97c8-d3c6-486d-b307-6709cab75b1f" name="Default Changelist" comment="" />
+      <created>1637132411200</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1637132411200</updated>
+      <workItem from="1637132416013" duration="27847000" />
+      <workItem from="1637561567387" duration="55752000" />
+      <workItem from="1639548593956" duration="2025000" />
+      <workItem from="1639828222114" duration="35545000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="518" height="761" key="DebuggerActiveHint" timestamp="1641150583296">
+      <screen x="0" y="25" width="1792" height="1095" />
+    </state>
+    <state width="518" height="761" key="DebuggerActiveHint/0.25.1792.1095@0.25.1792.1095" timestamp="1641150583296" />
+    <state width="1734" height="415" key="GridCell.Tab.0.bottom" timestamp="1641192798366">
+      <screen x="0" y="25" width="1792" height="1095" />
+    </state>
+    <state width="1734" height="415" key="GridCell.Tab.0.bottom/0.25.1792.1095@0.25.1792.1095" timestamp="1641192798366" />
+    <state width="1734" height="415" key="GridCell.Tab.0.center" timestamp="1641192798366">
+      <screen x="0" y="25" width="1792" height="1095" />
+    </state>
+    <state width="1734" height="415" key="GridCell.Tab.0.center/0.25.1792.1095@0.25.1792.1095" timestamp="1641192798366" />
+    <state width="1734" height="415" key="GridCell.Tab.0.left" timestamp="1641192798365">
+      <screen x="0" y="25" width="1792" height="1095" />
+    </state>
+    <state width="1734" height="415" key="GridCell.Tab.0.left/0.25.1792.1095@0.25.1792.1095" timestamp="1641192798365" />
+    <state width="1734" height="415" key="GridCell.Tab.0.right" timestamp="1641192798366">
+      <screen x="0" y="25" width="1792" height="1095" />
+    </state>
+    <state width="1734" height="415" key="GridCell.Tab.0.right/0.25.1792.1095@0.25.1792.1095" timestamp="1641192798366" />
+    <state width="1734" height="289" key="GridCell.Tab.1.bottom" timestamp="1641190674574">
+      <screen x="0" y="25" width="1792" height="1095" />
+    </state>
+    <state width="1734" height="289" key="GridCell.Tab.1.bottom/0.25.1792.1095@0.25.1792.1095" timestamp="1641190674574" />
+    <state width="1734" height="289" key="GridCell.Tab.1.center" timestamp="1641190674573">
+      <screen x="0" y="25" width="1792" height="1095" />
+    </state>
+    <state width="1734" height="289" key="GridCell.Tab.1.center/0.25.1792.1095@0.25.1792.1095" timestamp="1641190674573" />
+    <state width="1734" height="289" key="GridCell.Tab.1.left" timestamp="1641190674573">
+      <screen x="0" y="25" width="1792" height="1095" />
+    </state>
+    <state width="1734" height="289" key="GridCell.Tab.1.left/0.25.1792.1095@0.25.1792.1095" timestamp="1641190674573" />
+    <state width="1734" height="289" key="GridCell.Tab.1.right" timestamp="1641190674574">
+      <screen x="0" y="25" width="1792" height="1095" />
+    </state>
+    <state width="1734" height="289" key="GridCell.Tab.1.right/0.25.1792.1095@0.25.1792.1095" timestamp="1641190674574" />
+    <state x="256" y="49" key="SettingsEditor" timestamp="1637563557933">
+      <screen x="0" y="25" width="1792" height="1095" />
+    </state>
+    <state x="256" y="49" key="SettingsEditor/0.25.1792.1095@0.25.1792.1095" timestamp="1637563557933" />
+    <state x="462" y="362" key="com.intellij.ide.util.TipDialog" timestamp="1639828222093">
+      <screen x="0" y="25" width="1792" height="1095" />
+    </state>
+    <state x="462" y="362" key="com.intellij.ide.util.TipDialog/0.25.1792.1095@0.25.1792.1095" timestamp="1639828222093" />
+    <state x="0" y="25" key="new project wizard" timestamp="1637132480993">
+      <screen x="0" y="25" width="1792" height="1095" />
+    </state>
+    <state x="0" y="25" key="new project wizard/0.25.1792.1095@0.25.1792.1095" timestamp="1637132480993" />
+    <state x="591" y="116" key="refactoring.ChangeSignatureDialog" timestamp="1637748566075">
+      <screen x="0" y="25" width="1792" height="1095" />
+    </state>
+    <state x="591" y="116" key="refactoring.ChangeSignatureDialog/0.25.1792.1095@0.25.1792.1095" timestamp="1637748566075" />
+  </component>
+</project>
