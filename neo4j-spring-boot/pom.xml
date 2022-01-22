@@ -51,6 +51,13 @@
             <artifactId>org.eclipse.jgit</artifactId>
             <version>4.10.0.201712302008-r</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.ibm.icu/icu4j -->
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>70.1</version>
+        </dependency>
+
     </dependencies>
 
 </project>

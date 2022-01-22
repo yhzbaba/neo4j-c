@@ -1,8 +1,10 @@
 package org.example.neo4jspringboot;
 
+import org.eclipse.cdt.core.dom.ast.IASTTranslationUnit;
 import org.eclipse.core.runtime.CoreException;
 import org.example.neo4jspringboot.dao.*;
 import org.example.neo4jspringboot.entity.*;
+import org.example.neo4jspringboot.utils.GetTranslationUnitUtil;
 import org.example.neo4jspringboot.utils.ProjectFilesReader;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -89,12 +91,37 @@ public class Neo4jSpringBootApplicationTest {
     }
 
     @Test
+    public void getLines() throws IOException {
+        long lines = 0;
+        ProjectFilesReader fileComponent = new ProjectFilesReader("/Users/yhzbaba/Documents/phd/ungraduate/kernel_liteos_a-master");
+        List<File> files = fileComponent.getAllFilesAndDirsList();
+        for (File file: files) {
+            if (file.isFile()){
+                String fileFullName = file.getAbsolutePath();
+                String fileName = file.getName();
+                if(fileName.contains(".")) {
+                    String substring = fileName.substring(fileName.lastIndexOf("."));
+                    if(".c".equals(substring) || ".h".equals(substring)){
+                        long tempLine = GetTranslationUnitUtil.getLines(file);
+                        lines += tempLine;
+                        System.out.println(fileFullName + "->" + tempLine + "->" + lines);
+                    }
+                }
+            }
+        }
+        System.out.println(lines);
+//        File file = new File("/Users/yhzbaba/Documents/phd/ungraduate/qemu-master/net/eth.c");
+//        System.out.println(GetTranslationUnitUtil.getLines(file));
+    }
+
+    @Test
     public void readAllFiles() throws IOException, CoreException {
         CProjectInfo projectInfo = new CProjectInfo();
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/cJSON/");
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/Code/C++/csp");
-//        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/ideaWorkspace/test2/src/main/resources");
-        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/qemu-master/net");
+        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/ideaWorkspace/test2/src/main/resources");
+//        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/qemu-master");
+//        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/kernel_liteos_a-master");
 
         projectInfo.getCodeFileInfoMap().values().forEach(cCodeFileInfo -> {
             cCodeFileRepository.save(cCodeFileInfo);
