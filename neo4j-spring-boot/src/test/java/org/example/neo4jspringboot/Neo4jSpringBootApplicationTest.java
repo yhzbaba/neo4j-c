@@ -118,8 +118,8 @@ public class Neo4jSpringBootApplicationTest {
     public void readAllFiles() throws IOException, CoreException {
         CProjectInfo projectInfo = new CProjectInfo();
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/cJSON/");
-//        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/Code/C++/csp");
-        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/ideaWorkspace/test2/src/main/resources");
+        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/Code/C++/csp");
+//        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/ideaWorkspace/test2/src/main/resources");
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/qemu-master");
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/kernel_liteos_a-master");
 
@@ -128,6 +128,7 @@ public class Neo4jSpringBootApplicationTest {
         });
 
         projectInfo.getCodeFileInfoMap().values().forEach(cCodeFileInfo -> {
+            long sTime = System.currentTimeMillis();
             cCodeFileInfo.initIncludeCodeFiles();
             cCodeFileInfo.initFunctions();
             cCodeFileInfo.initDataStructures();
@@ -156,7 +157,11 @@ public class Neo4jSpringBootApplicationTest {
                 cVariableRepository.save(cVariableInfo);
                 cCodeFileRepository.createCodeFileDefineVariableR(cCodeFileInfo.getFileName(), cVariableInfo.getName(), "define");
             });
+            long eTime = System.currentTimeMillis();
+            System.out.printf("%s 执行时间：%d 毫秒\n", cCodeFileInfo.getFileName(), (eTime - sTime));
         });
+
+        System.out.println("!!!!第一个大括号结束了");
 
         // bug 作为函数参数调用 改了
         projectInfo.getCodeFileInfoMap().values().forEach(cCodeFileInfo -> {
@@ -200,5 +205,7 @@ public class Neo4jSpringBootApplicationTest {
             });
             });
         });
+
+
     }
 }
