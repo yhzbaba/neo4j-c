@@ -23,9 +23,6 @@ public class CDataStructureInfo {
     private String name;
 
     @Property
-    private String content;
-
-    @Property
     private Boolean isEnum;
 
     @Property
@@ -36,34 +33,38 @@ public class CDataStructureInfo {
     private List<CFieldInfo> fieldInfoList = new ArrayList<>();
 
     public void initEnumFieldInfo() {
-        for (IASTNode node: simpleDeclaration.getChildren()) {
-            for (IASTNode node2: node.getChildren()) {
-                if (node2 instanceof IASTEnumerationSpecifier.IASTEnumerator) {
-                    CFieldInfo fieldInfo = new CFieldInfo();
-                    fieldInfo.setName(((IASTEnumerationSpecifier.IASTEnumerator) node2).getName().toString());
-                    fieldInfo.setType("int");
-                    fieldInfoList.add(fieldInfo);
-                }
-            }
-        }
+//        for (IASTNode node: simpleDeclaration.getChildren()) {
+//            for (IASTNode node2: node.getChildren()) {
+//                if (node2 instanceof IASTEnumerationSpecifier.IASTEnumerator) {
+//                    CFieldInfo fieldInfo = new CFieldInfo();
+//                    fieldInfo.setName(((IASTEnumerationSpecifier.IASTEnumerator) node2).getName().toString());
+//                    fieldInfo.setType("int");
+//                    fieldInfoList.add(fieldInfo);
+//                }
+//            }
+//        }
     }
 
     public void initStructFieldInfo() {
+        boolean isPointer;
         for (IASTNode node: simpleDeclaration.getChildren()) {
             for (IASTNode node2: node.getChildren()) {
                 CFieldInfo fieldInfo = new CFieldInfo();
                 StringBuilder name = new StringBuilder();
                 StringBuilder type = new StringBuilder();
-                boolean isPointer = false;
+                isPointer = false;
                 boolean isArray = false;
-                boolean isNull = false;
                 for(IASTNode node3: node2.getChildren()) {
                     if (node3 instanceof IASTDeclarator) {
-                        // 名字部分
-                        name.append(((IASTDeclarator) node3).getName().toString());
+                        // 名字部分 目前的策略是只有直接的函数指针保存
                         if (ASTUtil.hasPointerType((IASTDeclarator)node3)){
                             // 指针
                             isPointer = true;
+                            for (IASTNode node4: node3.getChildren()) {
+                                if (node4 instanceof IASTDeclarator) {
+                                    name.append(((IASTDeclarator) node4).getName().toString());
+                                }
+                            }
                         }
                         if (node3 instanceof IASTArrayDeclarator) {
                             isArray = true;
@@ -71,8 +72,6 @@ public class CDataStructureInfo {
                     } else if (node3 instanceof IASTDeclSpecifier) {
                         // 类型部分 还没有处理函数指针
                         type.append(node3.getRawSignature());
-                    } else {
-                        isNull = true;
                     }
                 }
                 if ("".equals(name.toString())) {
@@ -86,7 +85,9 @@ public class CDataStructureInfo {
                     type.append("[]");
                 }
                 fieldInfo.setType(type.toString());
-                fieldInfoList.add(fieldInfo);
+                if(isPointer) {
+                    fieldInfoList.add(fieldInfo);
+                }
             }
         }
     }

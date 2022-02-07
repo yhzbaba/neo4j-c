@@ -28,6 +28,8 @@ import java.util.Map;
 public class CProjectInfo {
     private Map<String, CCodeFileInfo> codeFileInfoMap = new HashMap<>();
 
+    private int numberOfFiles;
+
     /**
      * 项目路径下所有文件构造TranslationUnit，构造对应CCodeFileInfo,这个函数结束codeFileInfoMap就构建完成了
      * @param dir 项目路径
@@ -39,6 +41,7 @@ public class CProjectInfo {
         List<File> files = fileComponent.getAllFilesAndDirsList();
         for (File file: files) {
             if (file.isFile()){
+
                 String fileFullName = file.getAbsolutePath();
                 String fileName = file.getName();
                 if(fileName.contains(".")) {
@@ -50,9 +53,10 @@ public class CProjectInfo {
                     continue;
                 }
                 System.out.println(fileFullName);
+                numberOfFiles++;
                 IASTTranslationUnit translationUnit = GetTranslationUnitUtil.getASTTranslationUnit(new File(fileFullName));
-                CCodeFileInfo codeFileInfo = new CCodeFileInfo(fileName, translationUnit);
-                codeFileInfoMap.put(fileName, codeFileInfo);
+                CCodeFileInfo codeFileInfo = new CCodeFileInfo(fileFullName, fileName, translationUnit);
+                codeFileInfoMap.put(fileFullName, codeFileInfo);
             }
         }
     }

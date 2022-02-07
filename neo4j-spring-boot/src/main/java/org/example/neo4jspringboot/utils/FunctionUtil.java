@@ -48,7 +48,6 @@ public class FunctionUtil {
     public static List<String> getFunctionNameFromExpressionStatement(IASTExpressionStatement statement) {
         List<String> result = new ArrayList<>();
         for (IASTNode node : statement.getChildren()) {
-            System.out.println("hao " + node.getClass() + "->" + node.getRawSignature());
             if(node instanceof IASTFunctionCallExpression) {
                 IASTFunctionCallExpression functionCallExpression = (IASTFunctionCallExpression)node;
                 // 直接的函数调用语句
@@ -62,7 +61,6 @@ public class FunctionUtil {
     public static List<String> getFunctionNameFromReturnStatement(IASTReturnStatement statement) {
         List<String> result = new ArrayList<>();
         for (IASTNode node : statement.getChildren()) {
-            System.out.println(node.getClass() + " -> " + node.getRawSignature());
             if(node instanceof IASTFunctionCallExpression) {
                 // 直接的函数调用语句
                 result.addAll(getFunctionNameFromFunctionCallExpression((IASTFunctionCallExpression)node));

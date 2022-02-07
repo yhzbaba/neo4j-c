@@ -93,7 +93,8 @@ public class Neo4jSpringBootApplicationTest {
     @Test
     public void getLines() throws IOException {
         long lines = 0;
-        ProjectFilesReader fileComponent = new ProjectFilesReader("/Users/yhzbaba/Documents/phd/ungraduate/kernel_liteos_a-master");
+//        ProjectFilesReader fileComponent = new ProjectFilesReader("/Users/yhzbaba/Documents/phd/ungraduate/kernel_liteos_a-master");
+        ProjectFilesReader fileComponent = new ProjectFilesReader("/Users/yhzbaba/Documents/phd/ungraduate/linux-master/arch");
         List<File> files = fileComponent.getAllFilesAndDirsList();
         for (File file: files) {
             if (file.isFile()){
@@ -122,11 +123,14 @@ public class Neo4jSpringBootApplicationTest {
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/ideaWorkspace/test2/src/main/resources");
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/qemu-master");
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/kernel_liteos_a-master");
+//        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/linux-master/arch");
 
         projectInfo.getCodeFileInfoMap().values().forEach(cCodeFileInfo -> {
             cCodeFileRepository.save(cCodeFileInfo);
         });
 
+        final int[] numberOfFirstSeqFiles = {0};
+        final int numberOfFiles = projectInfo.getNumberOfFiles();
         projectInfo.getCodeFileInfoMap().values().forEach(cCodeFileInfo -> {
             long sTime = System.currentTimeMillis();
             cCodeFileInfo.initIncludeCodeFiles();
@@ -146,6 +150,7 @@ public class Neo4jSpringBootApplicationTest {
             });
 
             cCodeFileInfo.getDataStructureList().forEach(cDataStructureInfo -> {
+                System.out.println(cDataStructureInfo.getFieldInfoList());
                 cDataStructureRepository.save(cDataStructureInfo);
                 cCodeFileRepository.createCodeFileDefineDataStructureR(cCodeFileInfo.getFileName(), cDataStructureInfo.getName(), "define");
                 cDataStructureInfo.getFieldInfoList().forEach(cFieldInfo -> {
@@ -157,14 +162,23 @@ public class Neo4jSpringBootApplicationTest {
                 cVariableRepository.save(cVariableInfo);
                 cCodeFileRepository.createCodeFileDefineVariableR(cCodeFileInfo.getFileName(), cVariableInfo.getName(), "define");
             });
+
             long eTime = System.currentTimeMillis();
-            System.out.printf("%s 执行时间：%d 毫秒\n", cCodeFileInfo.getFileName(), (eTime - sTime));
+            numberOfFirstSeqFiles[0]++;
+            if(eTime - sTime > 9) {
+                System.out.printf("%s 执行时间：%d 毫秒, \t\t进度：%d / %d\n", cCodeFileInfo.getFileName(), (eTime - sTime),
+                        numberOfFirstSeqFiles[0], numberOfFiles);
+            } else {
+                System.out.printf("进度：%d / %d\n", numberOfFirstSeqFiles[0], numberOfFiles);
+            }
         });
 
         System.out.println("!!!!第一个大括号结束了");
 
         // bug 作为函数参数调用 改了
+        final int[] numberOfSecondSeqFiles = {0};
         projectInfo.getCodeFileInfoMap().values().forEach(cCodeFileInfo -> {
+            long sTime = System.currentTimeMillis();
             cCodeFileInfo.getFunctionInfoList().forEach(CFunctionInfo::initCallFunctionNameList);
             cCodeFileInfo.getFunctionInfoList().forEach(cFunctionInfo -> {
                 List<String> newFilter = new ArrayList<>();
@@ -176,7 +190,6 @@ public class Neo4jSpringBootApplicationTest {
                     List<CFunctionInfo> tempList = cFunctionRepository.getFunctionFromName(s);
                     if(tempList.size() > 1) {
                         List<String> includeCodeFileList = cCodeFileInfo.getIncludeCodeFileList();
-                        System.out.println(includeCodeFileList);
                         for (CFunctionInfo info : tempList) {
                             if (cFunctionInfo.getBelongTo().equals(info.getBelongTo())) {
                                 // (2)
@@ -191,11 +204,12 @@ public class Neo4jSpringBootApplicationTest {
                             }
                         }
                     } else if (tempList.size() == 1) {
+                        CFunctionInfo only = tempList.get(0);
                         // 只查到了一个那就直接扔进去 不然也没啥意义了
-                        newFilter.add(cFunctionInfo.getBelongTo() + s);
+                        newFilter.add(only.getBelongTo() + s);
                     }
                 }
-                System.out.println("filter: " + newFilter);
+//                System.out.println(cFunctionInfo.getName() + " filter: " + newFilter);
                 cFunctionInfo.setCallFunctionNameList(newFilter);
             });
             cCodeFileInfo.getFunctionInfoList().forEach(cFunctionInfo -> {
@@ -204,6 +218,10 @@ public class Neo4jSpringBootApplicationTest {
                             name, "invoke");
             });
             });
+            long eTime = System.currentTimeMillis();
+            numberOfSecondSeqFiles[0]++;
+            System.out.printf("second %s 执行时间：%d 毫秒, \t\t进度：%d / %d\n", cCodeFileInfo.getFileName(), (eTime - sTime),
+                    numberOfSecondSeqFiles[0], numberOfFiles);
         });
 
 

@@ -24,6 +24,8 @@ public class CCodeFileInfo implements Serializable {
     @Property
     private String fileName;
 
+    private String tailFileName;
+
     private IASTTranslationUnit unit;
 
     /**
@@ -46,9 +48,10 @@ public class CCodeFileInfo implements Serializable {
      */
     private List<CVariableInfo> variableInfoList = new ArrayList<>();
 
-    public CCodeFileInfo(String fileName, IASTTranslationUnit unit) {
+    public CCodeFileInfo(String fileName, String tailFileName, IASTTranslationUnit unit) {
         this.fileName = fileName;
         this.unit = unit;
+        this.tailFileName = tailFileName;
     }
 
     /**
@@ -68,7 +71,7 @@ public class CCodeFileInfo implements Serializable {
                 functionInfo.setName(functionName);
                 String fullFunctionName = declarator.getRawSignature();
                 functionInfo.setFullName(fullFunctionName);
-                functionInfo.setContent(functionDefinition.getBody().getRawSignature());
+//                functionInfo.setContent(functionDefinition.getBody().getRawSignature());
                 functionInfo.setBelongTo(fileName);
                 functionInfo.setBelongToName(fileName + functionName);
                 for (IASTNode child : declarator.getChildren()) {
@@ -98,7 +101,6 @@ public class CCodeFileInfo implements Serializable {
                     // 这块区域是enum，包括typedef
                     CDataStructureInfo structureInfo = new CDataStructureInfo();
                     structureInfo.setSimpleDeclaration(simpleDeclaration);
-                    structureInfo.setContent(simpleDeclaration.getRawSignature());
                     structureInfo.setIsEnum(true);
                     structureInfo.setName(((IASTEnumerationSpecifier) declSpecifier).getName().toString());
                     structureInfo.setTypedefName("");
@@ -114,7 +116,7 @@ public class CCodeFileInfo implements Serializable {
                     // 结构体 包括typedef
                     CDataStructureInfo structureInfo = new CDataStructureInfo();
                     structureInfo.setSimpleDeclaration(simpleDeclaration);
-                    structureInfo.setContent(simpleDeclaration.getRawSignature());
+//                    structureInfo.setContent(simpleDeclaration.getRawSignature());
                     structureInfo.setIsEnum(false);
                     structureInfo.setName(((IASTCompositeTypeSpecifier) declSpecifier).getName().toString());
                     structureInfo.setTypedefName("");
@@ -210,7 +212,7 @@ public class CCodeFileInfo implements Serializable {
                 functionInfo.setFullName("");
                 functionInfo.setIsConst(false);
                 functionInfo.setIsInline(true);
-                functionInfo.setContent(macroDefinition.getRawSignature());
+//                functionInfo.setContent(macroDefinition.getRawSignature());
                 functionInfo.setBelongTo(fileName);
                 functionInfo.setBelongToName(fileName + macroDefinition.getName().toString());
                 functionInfoList.add(functionInfo);
@@ -218,7 +220,7 @@ public class CCodeFileInfo implements Serializable {
             if (statement instanceof IASTPreprocessorIncludeStatement) {
                 IASTPreprocessorIncludeStatement includeStatement = (IASTPreprocessorIncludeStatement)statement;
                 if (!includeStatement.isSystemInclude()) {
-                    includeCodeFileList.add(includeStatement.getName().toString());
+                    includeCodeFileList.add(fileName.substring(0, fileName.lastIndexOf('/') + 1) + includeStatement.getName().toString());
                 }
             }
         }

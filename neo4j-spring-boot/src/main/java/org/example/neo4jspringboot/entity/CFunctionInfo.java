@@ -29,12 +29,6 @@ public class CFunctionInfo {
     private String name;
 
     /**
-     * 函数体
-     */
-    @Property
-    private String content;
-
-    /**
      * 完整函数声明
      */
     @Property
@@ -140,7 +134,7 @@ public class CFunctionInfo {
                 }
             }
             List<String> filtered = finalResult.stream().filter(string -> !string.isEmpty()).collect(Collectors.toList());
-            System.out.println(name + "函数的调用情况: " + filtered);
+//            System.out.println(name + "函数的调用情况: " + filtered);
             setCallFunctionNameList(filtered);
         }
     }
