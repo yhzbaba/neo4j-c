@@ -5,6 +5,7 @@ import org.eclipse.cdt.core.dom.ast.*;
 import org.eclipse.cdt.core.dom.ast.c.ICASTTypedefNameSpecifier;
 import org.eclipse.cdt.internal.core.dom.parser.c.CASTParameterDeclaration;
 import org.example.neo4jspringboot.utils.ASTUtil;
+import org.example.neo4jspringboot.utils.FunctionUtil;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -83,6 +84,7 @@ public class CCodeFileInfo implements Serializable {
                 functionInfo.setIsInline(declSpecifier.isInline());
                 functionInfo.setIsConst(declSpecifier.isConst());
                 functionInfo.setIsDefine(false);
+                FunctionUtil.FUNCTION_HASH_LIST[FunctionUtil.hashFunc(functionName)].add(functionInfo);
                 functionInfoList.add(functionInfo);
             }
         }

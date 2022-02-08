@@ -15,4 +15,7 @@ public interface CFunctionRepository extends Neo4jRepository<CFunctionInfo, Long
 
     @Query("match (n:`c-function-node`{name: {0}}) return n")
     List<CFunctionInfo> getFunctionFromName(String name);
+
+    @Query("match (n:`c-function-node`{id: {0}}) return n")
+    List<CFunctionInfo> getFunctionFromId(String id);
 }

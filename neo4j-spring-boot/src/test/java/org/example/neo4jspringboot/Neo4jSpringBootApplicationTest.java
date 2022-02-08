@@ -4,6 +4,7 @@ import org.eclipse.cdt.core.dom.ast.IASTTranslationUnit;
 import org.eclipse.core.runtime.CoreException;
 import org.example.neo4jspringboot.dao.*;
 import org.example.neo4jspringboot.entity.*;
+import org.example.neo4jspringboot.utils.FunctionUtil;
 import org.example.neo4jspringboot.utils.GetTranslationUnitUtil;
 import org.example.neo4jspringboot.utils.ProjectFilesReader;
 import org.junit.Test;
@@ -14,10 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @SpringBootTest
@@ -56,9 +54,13 @@ public class Neo4jSpringBootApplicationTest {
 
     @Test
     public void testQuery(){
-        Optional<Person> byId = personRepository.findById(0L);
-        byId.orElse(null);
-
+//        Optional<Person> byId = personRepository.findById(0L);
+//        byId.orElse(null);
+        long time1 = System.currentTimeMillis();
+        List<CFunctionInfo> tempList = cFunctionRepository.getFunctionFromId("12408");
+        long time2 = System.currentTimeMillis();
+        System.out.println(tempList);
+        System.out.printf("time2 - time1 = %d 毫秒\n", (time2 - time1));
     }
 
     @Test
@@ -94,7 +96,7 @@ public class Neo4jSpringBootApplicationTest {
     public void getLines() throws IOException {
         long lines = 0;
 //        ProjectFilesReader fileComponent = new ProjectFilesReader("/Users/yhzbaba/Documents/phd/ungraduate/kernel_liteos_a-master");
-        ProjectFilesReader fileComponent = new ProjectFilesReader("/Users/yhzbaba/Documents/phd/ungraduate/linux-master/arch");
+        ProjectFilesReader fileComponent = new ProjectFilesReader("/Users/yhzbaba/Documents/phd/ungraduate/linux-master/net");
         List<File> files = fileComponent.getAllFilesAndDirsList();
         for (File file: files) {
             if (file.isFile()){
@@ -116,14 +118,44 @@ public class Neo4jSpringBootApplicationTest {
     }
 
     @Test
+    public void testStringHash() {
+//        List<CFunctionInfo>[] ls = new ArrayList[1111113];
+//        for (int i = 0; i < 1111113; i++) {
+//            ls[i] = new ArrayList<>();
+//        }
+//        String name = "alloc_pvd";
+//        CFunctionInfo info = new CFunctionInfo();
+//        info.setName(name);
+//        ls[hashFunc(name)].add(info);
+//
+//        List<CFunctionInfo> list = ls[hashFunc(name)];
+//        System.out.println(list);
+        System.out.println(hashFunc("RTL"));
+    }
+
+    public static int hashFunc(String key){
+        int arraySize = 1111113; 			//数组大小一般取质数
+        int hashCode = 0;
+        for(int i = 0; i < key.length(); i++){        //从字符串的左边开始计算
+            int letterValue = key.charAt(i) - 40;//将获取到的字符串转换成数字，比如a的码值是97，则97-96=1 就代表a的值，同理b=2；
+            hashCode = ((hashCode << 5) + letterValue + arraySize) % arraySize;//防止编码溢出，对每步结果都进行取模运算
+        }
+        return hashCode;
+    }
+
+    @Test
     public void readAllFiles() throws IOException, CoreException {
+        for (int i = 0; i < FunctionUtil.SIZE_OF_FUNCTION_HASH_SET; i++) {
+            FunctionUtil.FUNCTION_HASH_LIST[i] = new ArrayList<>();
+        }
         CProjectInfo projectInfo = new CProjectInfo();
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/cJSON/");
-        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/Code/C++/csp");
+//        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/Code/C++/csp");
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/ideaWorkspace/test2/src/main/resources");
-//        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/qemu-master");
+        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/qemu-master");
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/kernel_liteos_a-master");
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/linux-master/arch");
+//        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/linux-master/block");
 
         projectInfo.getCodeFileInfoMap().values().forEach(cCodeFileInfo -> {
             cCodeFileRepository.save(cCodeFileInfo);
@@ -150,7 +182,6 @@ public class Neo4jSpringBootApplicationTest {
             });
 
             cCodeFileInfo.getDataStructureList().forEach(cDataStructureInfo -> {
-                System.out.println(cDataStructureInfo.getFieldInfoList());
                 cDataStructureRepository.save(cDataStructureInfo);
                 cCodeFileRepository.createCodeFileDefineDataStructureR(cCodeFileInfo.getFileName(), cDataStructureInfo.getName(), "define");
                 cDataStructureInfo.getFieldInfoList().forEach(cFieldInfo -> {
@@ -165,7 +196,7 @@ public class Neo4jSpringBootApplicationTest {
 
             long eTime = System.currentTimeMillis();
             numberOfFirstSeqFiles[0]++;
-            if(eTime - sTime > 9) {
+            if(eTime - sTime > 9999) {
                 System.out.printf("%s 执行时间：%d 毫秒, \t\t进度：%d / %d\n", cCodeFileInfo.getFileName(), (eTime - sTime),
                         numberOfFirstSeqFiles[0], numberOfFiles);
             } else {
@@ -187,7 +218,8 @@ public class Neo4jSpringBootApplicationTest {
                 for (String s : old) {
                     // #include "include/abcd.h" 完整路径
                     // 看类图挨个处理
-                    List<CFunctionInfo> tempList = cFunctionRepository.getFunctionFromName(s);
+                    List<CFunctionInfo> tempList = FunctionUtil.FUNCTION_HASH_LIST[FunctionUtil.hashFunc(s)];
+//                    List<CFunctionInfo> tempList = cFunctionRepository.getFunctionFromName(s);
                     if(tempList.size() > 1) {
                         List<String> includeCodeFileList = cCodeFileInfo.getIncludeCodeFileList();
                         for (CFunctionInfo info : tempList) {
@@ -209,9 +241,9 @@ public class Neo4jSpringBootApplicationTest {
                         newFilter.add(only.getBelongTo() + s);
                     }
                 }
-//                System.out.println(cFunctionInfo.getName() + " filter: " + newFilter);
                 cFunctionInfo.setCallFunctionNameList(newFilter);
             });
+
             cCodeFileInfo.getFunctionInfoList().forEach(cFunctionInfo -> {
                 cFunctionInfo.getCallFunctionNameList().forEach(name -> {
                     cFunctionRepository.createFunctionInvokeFunctionR(cFunctionInfo.getBelongTo() + cFunctionInfo.getName(),
@@ -220,8 +252,12 @@ public class Neo4jSpringBootApplicationTest {
             });
             long eTime = System.currentTimeMillis();
             numberOfSecondSeqFiles[0]++;
-            System.out.printf("second %s 执行时间：%d 毫秒, \t\t进度：%d / %d\n", cCodeFileInfo.getFileName(), (eTime - sTime),
-                    numberOfSecondSeqFiles[0], numberOfFiles);
+            if(eTime - sTime > 9999) {
+                System.out.printf("second %s 执行时间：%d 毫秒, \t\t进度：%d / %d\n", cCodeFileInfo.getFileName(), (eTime - sTime),
+                        numberOfSecondSeqFiles[0], numberOfFiles);
+            } else {
+                System.out.printf("进度：%d / %d\n", numberOfSecondSeqFiles[0], numberOfFiles);
+            }
         });
 
 
