@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe6e97c8-d3c6-486d-b307-6709cab75b1f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/neo4j-spring-boot/src/main/java/org/example/neo4jspringboot/entity/CCodeFileInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/neo4j-spring-boot/src/main/java/org/example/neo4jspringboot/entity/CCodeFileInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neo4j-spring-boot/src/main/java/org/example/neo4jspringboot/entity/CDataStructureInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/neo4j-spring-boot/src/main/java/org/example/neo4jspringboot/entity/CDataStructureInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neo4j-spring-boot/src/main/java/org/example/neo4jspringboot/entity/CFunctionInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/neo4j-spring-boot/src/main/java/org/example/neo4jspringboot/entity/CFunctionInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neo4j-spring-boot/src/main/java/org/example/neo4jspringboot/entity/CProjectInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/neo4j-spring-boot/src/main/java/org/example/neo4jspringboot/entity/CProjectInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neo4j-spring-boot/src/main/java/org/example/neo4jspringboot/utils/FunctionUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/neo4j-spring-boot/src/main/java/org/example/neo4jspringboot/utils/FunctionUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neo4j-spring-boot/src/test/java/org/example/neo4jspringboot/Neo4jSpringBootApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/neo4j-spring-boot/src/test/java/org/example/neo4jspringboot/Neo4jSpringBootApplicationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neo4j-spring-boot/target/classes/org/example/neo4jspringboot/entity/CCodeFileInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/neo4j-spring-boot/target/classes/org/example/neo4jspringboot/entity/CCodeFileInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neo4j-spring-boot/target/classes/org/example/neo4jspringboot/entity/CDataStructureInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/neo4j-spring-boot/target/classes/org/example/neo4jspringboot/entity/CDataStructureInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neo4j-spring-boot/target/classes/org/example/neo4jspringboot/entity/CFunctionInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/neo4j-spring-boot/target/classes/org/example/neo4jspringboot/entity/CFunctionInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neo4j-spring-boot/target/classes/org/example/neo4jspringboot/entity/CProjectInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/neo4j-spring-boot/target/classes/org/example/neo4jspringboot/entity/CProjectInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neo4j-spring-boot/target/classes/org/example/neo4jspringboot/utils/FunctionUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/neo4j-spring-boot/target/classes/org/example/neo4jspringboot/utils/FunctionUtil.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +49,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -65,32 +57,6 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.Neo4jSpringBootApplicationTest.readAllFiles">
-    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="crystal.Main" />
-      <module name="neo4j-spring-boot" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="crystal.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="crystal.projects.sample.Main" />
-      <module name="neo4j-spring-boot" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="crystal.projects.sample.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Neo4jSpringBootApplicationTest.getLines" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="neo4j-spring-boot" />
       <extension name="coverage">
@@ -123,6 +89,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Neo4jSpringBootApplicationTest.testQuery" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="neo4j-spring-boot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.neo4jspringboot.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.neo4jspringboot" />
+      <option name="MAIN_CLASS_NAME" value="org.example.neo4jspringboot.Neo4jSpringBootApplicationTest" />
+      <option name="METHOD_NAME" value="testQuery" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Neo4jSpringBootApplicationTest.testQuery1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="neo4j-spring-boot" />
       <extension name="coverage">
@@ -139,13 +121,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Neo4jSpringBootApplicationTest.testStringHash" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="neo4j-spring-boot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.neo4jspringboot.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.neo4jspringboot" />
+      <option name="MAIN_CLASS_NAME" value="org.example.neo4jspringboot.Neo4jSpringBootApplicationTest" />
+      <option name="METHOD_NAME" value="testStringHash" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.Neo4jSpringBootApplicationTest.readAllFiles" />
+        <item itemvalue="JUnit.Neo4jSpringBootApplicationTest.testStringHash" />
+        <item itemvalue="JUnit.Neo4jSpringBootApplicationTest.testQuery" />
         <item itemvalue="JUnit.Neo4jSpringBootApplicationTest.getLines" />
         <item itemvalue="JUnit.Neo4jSpringBootApplicationTest.testQuery1" />
-        <item itemvalue="Application.Main (1)" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -167,6 +165,11 @@
       <workItem from="1639548593956" duration="2025000" />
       <workItem from="1639828222114" duration="46504000" />
       <workItem from="1641868456093" duration="30056000" />
+      <workItem from="1644224509896" duration="3029000" />
+      <workItem from="1644299343771" duration="15799000" />
+      <workItem from="1644388907804" duration="1799000" />
+      <workItem from="1645444391787" duration="148000" />
+      <workItem from="1646276941282" duration="4154000" />
     </task>
     <task id="LOCAL-00001" summary="解决了include完整路径的问题">
       <created>1644138214814</created>
@@ -182,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644224427749</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="函数用字符串Hash维护，替代根据函数名查询函数节点">
+      <created>1644338935349</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1644338935349</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -193,7 +203,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -202,37 +214,38 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="解决了include完整路径的问题" />
     <MESSAGE value="简化Field概念，修复函数调用名唯一时无法invoke的bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="简化Field概念，修复函数调用名唯一时无法invoke的bug" />
+    <MESSAGE value="函数用字符串Hash维护，替代根据函数名查询函数节点" />
+    <option name="LAST_COMMIT_MESSAGE" value="函数用字符串Hash维护，替代根据函数名查询函数节点" />
   </component>
   <component name="WindowStateProjectService">
     <state x="571" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1644133991821">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
     <state x="571" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.25.1792.1095@0.25.1792.1095" timestamp="1644133991821" />
-    <state x="238" y="25" key="CommitChangelistDialog2" timestamp="1644224427511">
+    <state x="238" y="25" key="CommitChangelistDialog2" timestamp="1644338935079">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
-    <state x="238" y="25" key="CommitChangelistDialog2/0.25.1792.1095@0.25.1792.1095" timestamp="1644224427511" />
+    <state x="238" y="25" key="CommitChangelistDialog2/0.25.1792.1095@0.25.1792.1095" timestamp="1644338935079" />
     <state width="518" height="761" key="DebuggerActiveHint" timestamp="1641150583296">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
     <state width="518" height="761" key="DebuggerActiveHint/0.25.1792.1095@0.25.1792.1095" timestamp="1641150583296" />
-    <state width="1734" height="403" key="GridCell.Tab.0.bottom" timestamp="1644224477577">
+    <state width="1734" height="478" key="GridCell.Tab.0.bottom" timestamp="1646295771269">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
-    <state width="1734" height="403" key="GridCell.Tab.0.bottom/0.25.1792.1095@0.25.1792.1095" timestamp="1644224477577" />
-    <state width="1734" height="403" key="GridCell.Tab.0.center" timestamp="1644224477576">
+    <state width="1734" height="478" key="GridCell.Tab.0.bottom/0.25.1792.1095@0.25.1792.1095" timestamp="1646295771269" />
+    <state width="1734" height="478" key="GridCell.Tab.0.center" timestamp="1646295771268">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
-    <state width="1734" height="403" key="GridCell.Tab.0.center/0.25.1792.1095@0.25.1792.1095" timestamp="1644224477576" />
-    <state width="1734" height="403" key="GridCell.Tab.0.left" timestamp="1644224477576">
+    <state width="1734" height="478" key="GridCell.Tab.0.center/0.25.1792.1095@0.25.1792.1095" timestamp="1646295771268" />
+    <state width="1734" height="478" key="GridCell.Tab.0.left" timestamp="1646295771268">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
-    <state width="1734" height="403" key="GridCell.Tab.0.left/0.25.1792.1095@0.25.1792.1095" timestamp="1644224477576" />
-    <state width="1734" height="403" key="GridCell.Tab.0.right" timestamp="1644224477576">
+    <state width="1734" height="478" key="GridCell.Tab.0.left/0.25.1792.1095@0.25.1792.1095" timestamp="1646295771268" />
+    <state width="1734" height="478" key="GridCell.Tab.0.right" timestamp="1646295771268">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
-    <state width="1734" height="403" key="GridCell.Tab.0.right/0.25.1792.1095@0.25.1792.1095" timestamp="1644224477576" />
+    <state width="1734" height="478" key="GridCell.Tab.0.right/0.25.1792.1095@0.25.1792.1095" timestamp="1646295771268" />
     <state width="1734" height="403" key="GridCell.Tab.1.bottom" timestamp="1644224477577">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
@@ -249,22 +262,18 @@
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
     <state width="1734" height="403" key="GridCell.Tab.1.right/0.25.1792.1095@0.25.1792.1095" timestamp="1644224477577" />
-    <state x="256" y="49" key="SettingsEditor" timestamp="1642850415960">
+    <state x="317" y="111" key="SettingsEditor" timestamp="1646294941660">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
-    <state x="256" y="49" key="SettingsEditor/0.25.1792.1095@0.25.1792.1095" timestamp="1642850415960" />
-    <state x="396" y="225" key="Vcs.Push.Dialog.v2" timestamp="1644224437000">
+    <state x="317" y="111" key="SettingsEditor/0.25.1792.1095@0.25.1792.1095" timestamp="1646294941660" />
+    <state x="396" y="225" key="Vcs.Push.Dialog.v2" timestamp="1644338956231">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
-    <state x="396" y="225" key="Vcs.Push.Dialog.v2/0.25.1792.1095@0.25.1792.1095" timestamp="1644224437000" />
-    <state x="462" y="362" key="com.intellij.ide.util.TipDialog" timestamp="1644224511191">
+    <state x="396" y="225" key="Vcs.Push.Dialog.v2/0.25.1792.1095@0.25.1792.1095" timestamp="1644338956231" />
+    <state x="462" y="362" key="com.intellij.ide.util.TipDialog" timestamp="1646276940765">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>
-    <state x="462" y="362" key="com.intellij.ide.util.TipDialog/0.25.1792.1095@0.25.1792.1095" timestamp="1644224511191" />
-    <state x="0" y="25" key="new project wizard" timestamp="1637132480993">
-      <screen x="0" y="25" width="1792" height="1095" />
-    </state>
-    <state x="0" y="25" key="new project wizard/0.25.1792.1095@0.25.1792.1095" timestamp="1637132480993" />
+    <state x="462" y="362" key="com.intellij.ide.util.TipDialog/0.25.1792.1095@0.25.1792.1095" timestamp="1646276940765" />
     <state x="591" y="116" key="refactoring.ChangeSignatureDialog" timestamp="1637748566075">
       <screen x="0" y="25" width="1792" height="1095" />
     </state>

@@ -150,9 +150,9 @@ public class Neo4jSpringBootApplicationTest {
         }
         CProjectInfo projectInfo = new CProjectInfo();
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/cJSON/");
-//        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/Code/C++/csp");
+        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/Code/C++/csp");
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/ideaWorkspace/test2/src/main/resources");
-        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/qemu-master");
+//        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/qemu-master");
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/kernel_liteos_a-master");
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/linux-master/arch");
 //        projectInfo.makeTranslationUnits("/Users/yhzbaba/Documents/phd/ungraduate/linux-master/block");
