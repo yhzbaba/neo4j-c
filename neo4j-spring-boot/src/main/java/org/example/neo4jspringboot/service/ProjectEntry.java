@@ -1,33 +1,19 @@
-package org.example.neo4jspringboot;
+package org.example.neo4jspringboot.service;
 
-import org.eclipse.cdt.core.dom.ast.IASTTranslationUnit;
 import org.eclipse.core.runtime.CoreException;
 import org.example.neo4jspringboot.dao.*;
-import org.example.neo4jspringboot.entity.*;
+import org.example.neo4jspringboot.entity.CFunctionInfo;
+import org.example.neo4jspringboot.entity.CProjectInfo;
 import org.example.neo4jspringboot.utils.FunctionUtil;
-import org.example.neo4jspringboot.utils.GetTranslationUnitUtil;
-import org.example.neo4jspringboot.utils.ProjectFilesReader;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
-public class Neo4jSpringBootApplicationTest {
-
-    @Autowired
-    PersonRepository personRepository;
-
-    @Autowired
-    PersonRelationshipRepository personRelationshipRepository;
-
+@Service
+public class ProjectEntry {
     @Autowired
     CCodeFileRepository cCodeFileRepository;
 
@@ -43,108 +29,7 @@ public class Neo4jSpringBootApplicationTest {
     @Autowired
     CVariableRepository cVariableRepository;
 
-    @Test
-    public void testCreate(){
-//        Optional<Person> byId = personRepository.findById(123L);
-//        byId.orElse(null);
-        Person person = new Person();
-        person.setName("yhz1");
-        personRepository.save(person);
-    }
-
-    @Test
-    public void testQuery(){
-//        Optional<Person> byId = personRepository.findById(0L);
-//        byId.orElse(null);
-        long time1 = System.currentTimeMillis();
-        List<CFunctionInfo> tempList = cFunctionRepository.getFunctionFromId("12408");
-        long time2 = System.currentTimeMillis();
-        System.out.println(tempList);
-        System.out.printf("time2 - time1 = %d 毫秒\n", (time2 - time1));
-    }
-
-    @Test
-    public void testDelete(){
-        Optional<Person> byId = personRepository.findById(0L);
-        byId.orElse(null);
-        personRepository.deleteById(0L);
-    }
-
-    @Test
-    public void buildRelationship(){
-        Person person1 = new Person();
-        person1.setName("杨戬");
-        Person person2 = new Person();
-        person2.setName("玉鼎真人");
-        personRepository.save(person1);
-        personRepository.save(person2);
-
-        PersonRelationship relationship = new PersonRelationship();
-        relationship.setParent(person1);
-        relationship.setChild(person2);
-        relationship.setRelation("师傅");
-
-        personRelationshipRepository.save(relationship);
-    }
-
-    @Test
-    public void buildRelationship2(){
-        personRepository.createRelationship("yhz", "haha", "yhz1");
-    }
-
-    @Test
-    public void getLines() throws IOException {
-        long lines = 0;
-//        ProjectFilesReader fileComponent = new ProjectFilesReader("/Users/yhzbaba/Documents/phd/ungraduate/kernel_liteos_a-master");
-        ProjectFilesReader fileComponent = new ProjectFilesReader("/Users/yhzbaba/Documents/phd/ungraduate/linux-master/net");
-        List<File> files = fileComponent.getAllFilesAndDirsList();
-        for (File file: files) {
-            if (file.isFile()){
-                String fileFullName = file.getAbsolutePath();
-                String fileName = file.getName();
-                if(fileName.contains(".")) {
-                    String substring = fileName.substring(fileName.lastIndexOf("."));
-                    if(".c".equals(substring) || ".h".equals(substring)){
-                        long tempLine = GetTranslationUnitUtil.getLines(file);
-                        lines += tempLine;
-                        System.out.println(fileFullName + "->" + tempLine + "->" + lines);
-                    }
-                }
-            }
-        }
-        System.out.println(lines);
-//        File file = new File("/Users/yhzbaba/Documents/phd/ungraduate/qemu-master/net/eth.c");
-//        System.out.println(GetTranslationUnitUtil.getLines(file));
-    }
-
-    @Test
-    public void testStringHash() {
-//        List<CFunctionInfo>[] ls = new ArrayList[1111113];
-//        for (int i = 0; i < 1111113; i++) {
-//            ls[i] = new ArrayList<>();
-//        }
-//        String name = "alloc_pvd";
-//        CFunctionInfo info = new CFunctionInfo();
-//        info.setName(name);
-//        ls[hashFunc(name)].add(info);
-//
-//        List<CFunctionInfo> list = ls[hashFunc(name)];
-//        System.out.println(list);
-        System.out.println(hashFunc("RTL"));
-    }
-
-    public static int hashFunc(String key){
-        int arraySize = 1111113; 			//数组大小一般取质数
-        int hashCode = 0;
-        for(int i = 0; i < key.length(); i++){        //从字符串的左边开始计算
-            int letterValue = key.charAt(i) - 40;//将获取到的字符串转换成数字，比如a的码值是97，则97-96=1 就代表a的值，同理b=2；
-            hashCode = ((hashCode << 5) + letterValue + arraySize) % arraySize;//防止编码溢出，对每步结果都进行取模运算
-        }
-        return hashCode;
-    }
-
-    @Test
-    public void readAllFiles() throws IOException, CoreException {
+    public void run() throws IOException, CoreException {
         for (int i = 0; i < FunctionUtil.SIZE_OF_FUNCTION_HASH_SET; i++) {
             FunctionUtil.FUNCTION_HASH_LIST[i] = new ArrayList<>();
         }
@@ -245,7 +130,7 @@ public class Neo4jSpringBootApplicationTest {
                 cFunctionInfo.getCallFunctionNameList().forEach(name -> {
                     cFunctionRepository.createFunctionInvokeFunctionR(cFunctionInfo.getBelongTo() + cFunctionInfo.getName(),
                             name, "invoke");
-            });
+                });
             });
             long eTime = System.currentTimeMillis();
             numberOfSecondSeqFiles[0]++;
@@ -256,7 +141,5 @@ public class Neo4jSpringBootApplicationTest {
                 System.out.printf("进度：%d / %d\n", numberOfSecondSeqFiles[0], numberOfFiles);
             }
         });
-
-
     }
 }
