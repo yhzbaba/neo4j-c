@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
@@ -99,12 +101,12 @@ public class CFunctionInfo {
             // 这不是宏函数
             IASTCompoundStatement compoundStatement = (IASTCompoundStatement) functionDefinition.getBody();
             IASTStatement[] statements = compoundStatement.getStatements();
-            List<String> finalResult = new ArrayList<>();
+//            List<String> finalResult = new ArrayList<>();
+            Set<String> finalResult = new HashSet<>();
             for (IASTStatement statement : statements) {
                 if (statement instanceof IASTReturnStatement) {
                     // return语句 可能出现函数调用 return fun1(2); return fun1(2) < fun2 (4);
-                    List<String> returnResult = FunctionUtil.getFunctionNameFromReturnStatement((IASTReturnStatement) statement);
-                    finalResult.addAll(returnResult);
+                    finalResult.addAll(FunctionUtil.getFunctionNameFromReturnStatement((IASTReturnStatement) statement));
                 } else if (statement instanceof IASTDeclarationStatement) {
                     // int res = test1();
                     finalResult.addAll(FunctionUtil.getFunctionNameFromDeclarationStatement((IASTDeclarationStatement) statement));
@@ -112,61 +114,16 @@ public class CFunctionInfo {
                     // fun1(2)
                     finalResult.addAll(FunctionUtil.getFunctionNameFromExpressionStatement((IASTExpressionStatement) statement));
                 } else if (statement instanceof IASTForStatement) {
-                    for (IASTNode node : statement.getChildren()) {
-                        if (node instanceof IASTBinaryExpression) {
-                            List<String> binaryResult = FunctionUtil.getFunctionNameFromBinaryExpression((IASTBinaryExpression) node);
-                            finalResult.addAll(binaryResult);
-                        } else if (node instanceof IASTCompoundStatement) {
-                            List<String> compoundResult = FunctionUtil.getFunctionNameFromCompoundStatement((IASTCompoundStatement) node);
-                            finalResult.addAll(compoundResult);
-                        } else if (node instanceof IASTFunctionCallExpression) {
-                            List<String> functionCallResult = FunctionUtil.getFunctionNameFromFunctionCallExpression((IASTFunctionCallExpression) node);
-                            finalResult.addAll(functionCallResult);
-                        }
-                    }
+                    FunctionUtil.getFunctionNameAndUpdate(statement.getChildren(), finalResult);
                 } else if (statement instanceof IASTWhileStatement) {
-                    for (IASTNode node : statement.getChildren()) {
-                        if (node instanceof IASTBinaryExpression) {
-                            List<String> binaryResult = FunctionUtil.getFunctionNameFromBinaryExpression((IASTBinaryExpression) node);
-                            finalResult.addAll(binaryResult);
-                        } else if (node instanceof IASTCompoundStatement) {
-                            List<String> compoundResult = FunctionUtil.getFunctionNameFromCompoundStatement((IASTCompoundStatement) node);
-                            finalResult.addAll(compoundResult);
-                        } else if (node instanceof IASTFunctionCallExpression) {
-                            List<String> functionCallResult = FunctionUtil.getFunctionNameFromFunctionCallExpression((IASTFunctionCallExpression) node);
-                            finalResult.addAll(functionCallResult);
-                        }
-                    }
+                    FunctionUtil.getFunctionNameAndUpdate(statement.getChildren(), finalResult);
                 } else if (statement instanceof IASTIfStatement) {
-                    for (IASTNode node : statement.getChildren()) {
-                        if (node instanceof IASTBinaryExpression) {
-                            List<String> binaryResult = FunctionUtil.getFunctionNameFromBinaryExpression((IASTBinaryExpression) node);
-                            finalResult.addAll(binaryResult);
-                        } else if (node instanceof IASTCompoundStatement) {
-                            List<String> compoundResult = FunctionUtil.getFunctionNameFromCompoundStatement((IASTCompoundStatement) node);
-                            finalResult.addAll(compoundResult);
-                        } else if (node instanceof IASTFunctionCallExpression) {
-                            List<String> functionCallResult = FunctionUtil.getFunctionNameFromFunctionCallExpression((IASTFunctionCallExpression) node);
-                            finalResult.addAll(functionCallResult);
-                        }
-                    }
+                    FunctionUtil.getFunctionNameAndUpdate(statement.getChildren(), finalResult);
                 } else if (statement instanceof IASTSwitchStatement) {
-                    for (IASTNode node : statement.getChildren()) {
-                        if (node instanceof IASTBinaryExpression) {
-                            List<String> binaryResult = FunctionUtil.getFunctionNameFromBinaryExpression((IASTBinaryExpression) node);
-                            finalResult.addAll(binaryResult);
-                        } else if (node instanceof IASTCompoundStatement) {
-                            List<String> compoundResult = FunctionUtil.getFunctionNameFromCompoundStatement((IASTCompoundStatement) node);
-                            finalResult.addAll(compoundResult);
-                        } else if (node instanceof IASTFunctionCallExpression) {
-                            List<String> functionCallResult = FunctionUtil.getFunctionNameFromFunctionCallExpression((IASTFunctionCallExpression) node);
-                            finalResult.addAll(functionCallResult);
-                        }
-                    }
+                    FunctionUtil.getFunctionNameAndUpdate(statement.getChildren(), finalResult);
                 }
             }
             List<String> filtered = finalResult.stream().filter(string -> !string.isEmpty()).collect(Collectors.toList());
-//            System.out.println(name + "函数的调用情况: " + filtered);
             setCallFunctionNameList(filtered);
         }
     }

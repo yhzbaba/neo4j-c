@@ -4,7 +4,9 @@ import org.eclipse.cdt.core.dom.ast.*;
 import org.example.neo4jspringboot.entity.CFunctionInfo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class FunctionUtil {
     public static int SIZE_OF_FUNCTION_HASH_SET = 1111113;
@@ -16,8 +18,8 @@ public class FunctionUtil {
      * @param expression
      * @return
      */
-    public static List<String> getFunctionNameFromFunctionCallExpression(IASTFunctionCallExpression expression) {
-        List<String> result = new ArrayList<>();
+    public static Set<String> getFunctionNameFromFunctionCallExpression(IASTFunctionCallExpression expression) {
+        Set<String> result = new HashSet<>();
         IASTInitializerClause[] arguments = expression.getArguments();
         // 处理参数
         for (IASTInitializerClause clause : arguments) {
@@ -39,8 +41,8 @@ public class FunctionUtil {
         return result;
     }
 
-    public static List<String> getFunctionNameFromBinaryExpression(IASTBinaryExpression binaryExpression) {
-        List<String> nameResult = new ArrayList<>();
+    public static Set<String> getFunctionNameFromBinaryExpression(IASTBinaryExpression binaryExpression) {
+        Set<String> nameResult = new HashSet<>();
         for (IASTNode node : binaryExpression.getChildren()) {
             if(node instanceof IASTFunctionCallExpression) {
                 nameResult.addAll(getFunctionNameFromFunctionCallExpression((IASTFunctionCallExpression)node));
@@ -50,8 +52,8 @@ public class FunctionUtil {
         return nameResult;
     }
 
-    public static List<String> getFunctionNameFromExpressionStatement(IASTExpressionStatement statement) {
-        List<String> result = new ArrayList<>();
+    public static Set<String> getFunctionNameFromExpressionStatement(IASTExpressionStatement statement) {
+        Set<String> result = new HashSet<>();
         for (IASTNode node : statement.getChildren()) {
             if(node instanceof IASTFunctionCallExpression) {
                 IASTFunctionCallExpression functionCallExpression = (IASTFunctionCallExpression)node;
@@ -63,14 +65,14 @@ public class FunctionUtil {
         return result;
     }
 
-    public static List<String> getFunctionNameFromReturnStatement(IASTReturnStatement statement) {
-        List<String> result = new ArrayList<>();
+    public static Set<String> getFunctionNameFromReturnStatement(IASTReturnStatement statement) {
+        Set<String> result = new HashSet<>();
         for (IASTNode node : statement.getChildren()) {
             if(node instanceof IASTFunctionCallExpression) {
                 // 直接的函数调用语句
                 result.addAll(getFunctionNameFromFunctionCallExpression((IASTFunctionCallExpression)node));
             }else if(node instanceof IASTBinaryExpression) {
-                List<String> tResult = getFunctionNameFromBinaryExpression((IASTBinaryExpression)node);
+                Set<String> tResult = getFunctionNameFromBinaryExpression((IASTBinaryExpression)node);
                 result.addAll(tResult);
             }
         }
@@ -99,13 +101,13 @@ public class FunctionUtil {
         return result;
     }
 
-    public static List<String> getFunctionNameFromCompoundStatement(IASTCompoundStatement compoundStatement) {
-        List<String> result = new ArrayList<>();
+    public static Set<String> getFunctionNameFromCompoundStatement(IASTCompoundStatement compoundStatement) {
+        Set<String> result = new HashSet<>();
         IASTStatement[] statements = compoundStatement.getStatements();
         for (IASTStatement statement : statements) {
             if(statement instanceof IASTReturnStatement) {
                 // return语句 可能出现函数调用 return fun1(2); return fun1(2) < fun2 (4);
-                List<String> returnResult = getFunctionNameFromReturnStatement((IASTReturnStatement)statement);
+                Set<String> returnResult = getFunctionNameFromReturnStatement((IASTReturnStatement)statement);
                 result.addAll(returnResult);
             } else if (statement instanceof IASTDeclarationStatement) {
                 // int res = test1();
@@ -114,28 +116,30 @@ public class FunctionUtil {
                 // fun1(2)
                 result.addAll(getFunctionNameFromExpressionStatement((IASTExpressionStatement)statement));
             } else if (statement instanceof IASTForStatement) {
-                for (IASTNode node : statement.getChildren()) {
-                    if(node instanceof IASTBinaryExpression) {
-                        List<String> binaryResult = getFunctionNameFromBinaryExpression((IASTBinaryExpression)node);
-                        result.addAll(binaryResult);
-                    } else if (node instanceof IASTCompoundStatement) {
-                        List<String> compoundResult = getFunctionNameFromCompoundStatement((IASTCompoundStatement)node);
-                        result.addAll(compoundResult);
-                    }
-                }
+                FunctionUtil.getFunctionNameAndUpdate(statement.getChildren(), result);
             } else if (statement instanceof IASTWhileStatement) {
-                for (IASTNode node : statement.getChildren()) {
-                    if(node instanceof IASTBinaryExpression) {
-                        List<String> binaryResult = getFunctionNameFromBinaryExpression((IASTBinaryExpression)node);
-                        result.addAll(binaryResult);
-                    } else if (node instanceof IASTCompoundStatement) {
-                        List<String> compoundResult = getFunctionNameFromCompoundStatement((IASTCompoundStatement)node);
-                        result.addAll(compoundResult);
-                    }
-                }
+                FunctionUtil.getFunctionNameAndUpdate(statement.getChildren(), result);
+            } else if (statement instanceof IASTIfStatement) {
+                FunctionUtil.getFunctionNameAndUpdate(statement.getChildren(), result);
             }
         }
         return result;
+    }
+
+    public static Set<String> getFunctionNameAndUpdate(IASTNode[] nodes, Set<String> finalResult) {
+        for (IASTNode node : nodes) {
+            if (node instanceof IASTBinaryExpression) {
+                Set<String> binaryResult = FunctionUtil.getFunctionNameFromBinaryExpression((IASTBinaryExpression) node);
+                finalResult.addAll(binaryResult);
+            } else if (node instanceof IASTCompoundStatement) {
+                Set<String> compoundResult = FunctionUtil.getFunctionNameFromCompoundStatement((IASTCompoundStatement) node);
+                finalResult.addAll(compoundResult);
+            } else if (node instanceof IASTFunctionCallExpression) {
+                Set<String> functionCallResult = FunctionUtil.getFunctionNameFromFunctionCallExpression((IASTFunctionCallExpression) node);
+                finalResult.addAll(functionCallResult);
+            }
+        }
+        return finalResult;
     }
 
     public static int hashFunc(String key){
